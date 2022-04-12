@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Image Gallery </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Image Gallery</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button (click)="getPictures()">Get Pictures</ion-button>
+  <div>
+    <ion-img *ngFor="let image of images" [src]="image"></ion-img>
+  </div>
+</ion-content>
