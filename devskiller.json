@@ -1,0 +1,22 @@
+{
+  "verification": {
+    "testNamePatterns": [".*verify_pack.*"],
+    "pathPatterns": ["**verify_pack**"]
+  },
+  "readOnlyFiles": [
+    "package.json",
+    ".files.js",
+    "karma.conf.js",
+    "tsconfig.spec.json",
+    "src/verify_pack/capacitor.android.spec.ts",
+    "src/verify_pack/capacitor.config.spec.ts",
+    "src/verify_pack/capacitor.ios.spec.ts",
+    "src/verify_pack/ionic.config.spec.ts"
+  ],
+  "hiddenFiles": [
+    "node_modules",
+    "node_modules/**",
+    "src/verify_pack",
+    "src/verify_pack/**"
+  ]
+}
