@@ -137,16 +137,7 @@ describe('capacitor general configuration', () => {
   });
 
   const retrieveConfigObject = (plainConfig: string) => {
-    plainConfig = plainConfig.replace(
-      `import { CapacitorConfig } from '@capacitor/cli';`,
-      ''
-    );
-    plainConfig = plainConfig.replace('export default config;', '');
-    plainConfig = plainConfig.replace(
-      'const config: CapacitorConfig = ',
-      'config = '
-    );
-
-    return plainConfig;
+    // LV REVIEW: Changing this because when I touched capacitor.config.ts file my editor code formatter removed some spaces making the all verification tests to fail.
+    return 'config = ' + plainConfig.substring(plainConfig.indexOf('=') + 1, plainConfig.indexOf('export'));
   };
 });

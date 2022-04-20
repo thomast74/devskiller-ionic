@@ -2,15 +2,27 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { Tab3Page } from './tab3.page';
+// LV REVIEW: Is the applicant supposed to properly create a spy object for ImagePicker? Suppose so, right?!
+import {ImagePicker} from '@awesome-cordova-plugins/image-picker/ngx';
 
 describe('Tab3Page', () => {
   let component: Tab3Page;
   let fixture: ComponentFixture<Tab3Page>;
+  // LV REVIEW: Is the applicant supposed to properly create a spy object for ImagePicker? Suppose so, right?!
+  let imagePickerSpy: jasmine.SpyObj<ImagePicker>;
 
   beforeEach(waitForAsync(() => {
+    // LV REVIEW: Is the applicant supposed to properly create a spy object for ImagePicker? Suppose so, right?!
+    imagePickerSpy = jasmine.createSpyObj<ImagePicker>([
+      'hasReadPermission',
+      'requestReadPermission',
+      'getPictures',
+    ]);
     TestBed.configureTestingModule({
       declarations: [Tab3Page],
       imports: [IonicModule.forRoot()],
+      // LV REVIEW: Is the applicant supposed to properly create a spy object for ImagePicker? Suppose so, right?!
+      providers: [{provide: ImagePicker, useValue: imagePickerSpy}]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Tab3Page);

@@ -53,6 +53,14 @@ describe('Location Tab Page', () => {
     });
   });
 
+  it('should not request location permission on other lifecycle methods', async () => {
+    await component.ionViewDidEnter();
+    await component.ionViewWillLeave();
+    await component.ionViewDidLeave();
+
+    expect(geolocationSpy.requestPermissions).not.toHaveBeenCalled();
+  });
+
   it('should position error if request permission fails', async () => {
     geolocationSpy.requestPermissions.and.rejectWith(
       new Error('Permssion missing')
@@ -147,6 +155,22 @@ describe('Location Tab Page', () => {
     geolocationWatchCallback(expectedLocation, undefined);
 
     expect(component.position).toEqual(expectedLocation);
+    expect(component.positionError).toBeUndefined();
+  });
+
+  it('should show position error', async () => {
+    geolocationSpy.requestPermissions.and.resolveTo({
+      location: 'granted' as PermissionState,
+      coarseLocation: 'granted' as PermissionState,
+    });
+    const expectedLocation = null;
+    const expectedError = new Error('Some Position error');
+
+    await component.ionViewWillEnter();
+    geolocationWatchCallback(expectedLocation, expectedError);
+
+    expect(component.position).toEqual(expectedLocation);
+    expect(component.positionError?.toString() ).toContain(expectedError.message);
   });
 
   it('should clearWatch after leving page', async () => {

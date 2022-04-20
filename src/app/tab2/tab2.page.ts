@@ -16,7 +16,7 @@ export class Tab2Page {
 
   constructor(private ngZone: NgZone) {}
 
-  // TODO: request high precision permission when is is entering the page
+  // TODO: request high precision permission when entering the page
   // TODO: Show permission error or start watching location depending on permission
   // TODO: Watch position with high accuracy
   // TODO: present either the position or the error
@@ -26,9 +26,18 @@ export class Tab2Page {
     this.showPermissionError = false;
     this.positionError = undefined;
 
-    const permissionStatus = await Geolocation.requestPermissions({
-      permissions: ['location'],
-    });
+    try {
+      const permissionStatus = await Geolocation.requestPermissions({
+        permissions: ['location'],
+      });
+      if( permissionStatus?.location === 'granted' && permissionStatus?.coarseLocation === 'granted') {
+        await this.startWatchingLocation();
+      } else {
+        this.showPermissionError = true;
+      }
+    } catch (e) {
+      this.positionError = e;
+    }
   }
 
   async ionViewDidEnter() {}
@@ -49,7 +58,12 @@ export class Tab2Page {
       {
         enableHighAccuracy: true,
       },
-      (position, error) => {}
+      (position, error) => {
+        this.ngZone.run( ()=> {
+          this.position = position;
+          this.positionError = error;
+        });
+      }
     );
   }
 }

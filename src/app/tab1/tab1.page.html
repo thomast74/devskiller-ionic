@@ -13,7 +13,8 @@
 
   <ion-list *ngIf="deviceInfo">
     <ion-item *ngFor="let key of deviceInfoKeys">
-      <span>{{ key }}</span>
+      <!-- using ion-label to improve elements disposition on screen -->
+      <ion-label>{{ key }}</ion-label>
       <span>{{ deviceInfo[key] }}</span>
     </ion-item>
   </ion-list>

@@ -11,5 +11,6 @@ export type OperatingSystem = _OperatingSystem;
 
 export const Device = {
   getId: (): Promise<DeviceId> => Promise.resolve(void 0),
-  // getInfo: (): Promise<DeviceInfo> => Promise.resolve(void 0),
+  // LV REVIEW: QUESTION? Is the applicant supposed to fix the tests by touching this?
+  getInfo: (): Promise<DeviceInfo> => Promise.resolve(void 0),
 };
